@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "wtime.h": "c",
+    "stdlib.h": "c"
+  }
+}

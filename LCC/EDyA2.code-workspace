@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "EDyA2"
+		},
+		{
+			"path": "SistemasOperativosI"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"stdlib.h": "c",
+			"socket.h": "c",
+			"mpi.h": "c",
+			"semaphore.h": "c"
+		}
+	}
+}

@@ -1,0 +1,16 @@
+#include <omp.h>
+#include <stdio.h>
+
+int main(){
+    int sum = 0;
+    int val = 1;
+    
+    #pragma omp parallel for reduction(+: sum)
+    for (int i = 0; i < 100000; i++)
+    {
+        sum = sum + val;
+    }
+    printf("sum: %d\n", sum);
+
+    return 0;
+}

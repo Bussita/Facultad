@@ -1,0 +1,206 @@
+PTHREAD_MUTEX_LOCK(3POSIX)           POSIX Programmer's Manual          PTHREAD_MUTEX_LOCK(3POSIX)
+
+PPRROOLLOOGG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of
+       this interface may differ (consult the corresponding Linux manual page for details of Linux
+       behavior), or the interface may not be implemented on Linux.
+
+NNAAMMEE
+       pthread_mutex_lock, pthread_mutex_trylock, pthread_mutex_unlock — lock and unlock a mutex
+
+SSYYNNOOPPSSIISS
+       #include <pthread.h>
+
+       int pthread_mutex_lock(pthread_mutex_t *_m_u_t_e_x);
+       int pthread_mutex_trylock(pthread_mutex_t *_m_u_t_e_x);
+       int pthread_mutex_unlock(pthread_mutex_t *_m_u_t_e_x);
+
+DDEESSCCRRIIPPTTIIOONN
+       The mutex object referenced by _m_u_t_e_x shall be locked by a call to _p_t_h_r_e_a_d___m_u_t_e_x___l_o_c_k() that
+       returns zero or [[EEOOWWNNEERRDDEEAADD]].  If the mutex is already locked by another thread, the  call‐
+       ing  thread shall block until the mutex becomes available. This operation shall return with
+       the mutex object referenced by _m_u_t_e_x in the locked state with the  calling  thread  as  its
+       owner.  If  a  thread  attempts  to  relock a mutex that it has already locked, _p_t_h_r_e_a_d___m_u_‐
+       _t_e_x___l_o_c_k() shall behave as described in the RReelloocckk column of  the  following  table.  If  a
+       thread  attempts  to  unlock  a  mutex that it has not locked or a mutex which is unlocked,
+       _p_t_h_r_e_a_d___m_u_t_e_x___u_n_l_o_c_k() shall behave as described in the UUnnlloocckk WWhheenn NNoott OOwwnneerr column of the
+       following table.
+
+                   ┌───────────┬────────────┬────────────────┬───────────────────────┐
+                   │MMuutteexx TTyyppee │ RRoobbuussttnneessss │     RReelloocckk     │ UUnnlloocckk WWhheenn NNoott OOwwnneerr │
+                   ├───────────┼────────────┼────────────────┼───────────────────────┤
+                   │NORMAL     │ non-robust │ deadlock       │ undefined behavior    │
+                   ├───────────┼────────────┼────────────────┼───────────────────────┤
+                   │NORMAL     │ robust     │ deadlock       │ error returned        │
+                   ├───────────┼────────────┼────────────────┼───────────────────────┤
+                   │ERRORCHECK │ either     │ error returned │ error returned        │
+                   ├───────────┼────────────┼────────────────┼───────────────────────┤
+                   │RECURSIVE  │ either     │ recursive      │ error returned        │
+                   │           │            │ (see below)    │                       │
+                   ├───────────┼────────────┼────────────────┼───────────────────────┤
+                   │DEFAULT    │ non-robust │ undefined      │ undefined behavior†   │
+                   │           │            │ behavior†      │                       │
+                   ├───────────┼────────────┼────────────────┼───────────────────────┤
+                   │DEFAULT    │ robust     │ undefined      │ error returned        │
+                   │           │            │ behavior†      │                       │
+                   └───────────┴────────────┴────────────────┴───────────────────────┘
+       †     If  the mutex type is PTHREAD_MUTEX_DEFAULT, the behavior of _p_t_h_r_e_a_d___m_u_t_e_x___l_o_c_k() may
+             correspond to one of the three other standard mutex types as described in  the  table
+             above. If it does not correspond to one of those three, the behavior is undefined for
+             the cases marked †.
+
+       Where the table indicates recursive behavior, the mutex shall maintain  the  concept  of  a
+       lock  count. When a thread successfully acquires a mutex for the first time, the lock count
+       shall be set to one. Every time a thread relocks this mutex, the lock count shall be incre‐
+       mented  by one. Each time the thread unlocks the mutex, the lock count shall be decremented
+       by one. When the lock count reaches zero,  the  mutex  shall  become  available  for  other
+       threads to acquire.
+
+       The  _p_t_h_r_e_a_d___m_u_t_e_x___t_r_y_l_o_c_k()  function  shall be equivalent to _p_t_h_r_e_a_d___m_u_t_e_x___l_o_c_k(), except
+       that if the mutex object referenced by _m_u_t_e_x is currently locked (by any thread,  including
+       the  current  thread),  the call shall return immediately. If the mutex type is PTHREAD_MU‐
+       TEX_RECURSIVE and the mutex is currently owned by the calling thread, the mutex lock  count
+       shall  be incremented by one and the _p_t_h_r_e_a_d___m_u_t_e_x___t_r_y_l_o_c_k() function shall immediately re‐
+       turn success.
+
+       The _p_t_h_r_e_a_d___m_u_t_e_x___u_n_l_o_c_k() function shall release the mutex  object  referenced  by  _m_u_t_e_x.
+       The  manner  in  which a mutex is released is dependent upon the mutex's type attribute. If
+       there are threads blocked on the mutex object referenced by  _m_u_t_e_x  when  _p_t_h_r_e_a_d___m_u_t_e_x___u_n_‐
+       _l_o_c_k()  is  called,  resulting in the mutex becoming available, the scheduling policy shall
+       determine which thread shall acquire the mutex.
+
+       (In the case of PTHREAD_MUTEX_RECURSIVE mutexes, the mutex shall become available when  the
+       count reaches zero and the calling thread no longer has any locks on this mutex.)
+
+       If  a signal is delivered to a thread waiting for a mutex, upon return from the signal han‐
+       dler the thread shall resume waiting for the mutex as if it was not interrupted.
+
+       If _m_u_t_e_x is a robust mutex and the process containing the owning  thread  terminated  while
+       holding  the mutex lock, a call to _p_t_h_r_e_a_d___m_u_t_e_x___l_o_c_k() shall return the error value [[EEOOWWNN‐‐
+       EERRDDEEAADD]].  If _m_u_t_e_x is a robust mutex and the owning thread terminated while holding the mu‐
+       tex  lock,  a  call to _p_t_h_r_e_a_d___m_u_t_e_x___l_o_c_k() may return the error value [[EEOOWWNNEERRDDEEAADD]] even if
+       the process in which the owning thread resides has not terminated. In these cases, the  mu‐
+       tex is locked by the thread but the state it protects is marked as inconsistent. The appli‐
+       cation should ensure that the state is made consistent for reuse and when that is  complete
+       call  _p_t_h_r_e_a_d___m_u_t_e_x___c_o_n_s_i_s_t_e_n_t().   If  the  application is unable to recover the state, it
+       should unlock the mutex without a prior call to _p_t_h_r_e_a_d___m_u_t_e_x___c_o_n_s_i_s_t_e_n_t(), after which the
+       mutex is marked permanently unusable.
+
+       If  _m_u_t_e_x  does  not  refer  to  an  initialized  mutex object, the behavior of _p_t_h_r_e_a_d___m_u_‐
+       _t_e_x___l_o_c_k(), _p_t_h_r_e_a_d___m_u_t_e_x___t_r_y_l_o_c_k(), and _p_t_h_r_e_a_d___m_u_t_e_x___u_n_l_o_c_k() is undefined.
+
+RREETTUURRNN VVAALLUUEE
+       If successful, the  _p_t_h_r_e_a_d___m_u_t_e_x___l_o_c_k(),  _p_t_h_r_e_a_d___m_u_t_e_x___t_r_y_l_o_c_k(),  and  _p_t_h_r_e_a_d___m_u_t_e_x___u_n_‐
+       _l_o_c_k()  functions  shall return zero; otherwise, an error number shall be returned to indi‐
+       cate the error.
+
+EERRRROORRSS
+       The _p_t_h_r_e_a_d___m_u_t_e_x___l_o_c_k() and _p_t_h_r_e_a_d___m_u_t_e_x___t_r_y_l_o_c_k() functions shall fail if:
+
+       EEAAGGAAIINN The mutex could not be acquired because the maximum number of  recursive  locks  for
+              _m_u_t_e_x has been exceeded.
+
+       EEIINNVVAALL The _m_u_t_e_x was created with the protocol attribute having the value PTHREAD_PRIO_PRO‐
+              TECT and the calling thread's priority is higher than the mutex's  current  priority
+              ceiling.
+
+       EENNOOTTRREECCOOVVEERRAABBLLEE
+              The state protected by the mutex is not recoverable.
+
+       EEOOWWNNEERRDDEEAADD
+              The  mutex  is  a robust mutex and the process containing the previous owning thread
+              terminated while holding the mutex lock. The mutex lock shall  be  acquired  by  the
+              calling thread and it is up to the new owner to make the state consistent.
+
+       The _p_t_h_r_e_a_d___m_u_t_e_x___l_o_c_k() function shall fail if:
+
+       EEDDEEAADDLLKK
+              The  mutex  type is PTHREAD_MUTEX_ERRORCHECK and the current thread already owns the
+              mutex.
+
+       The _p_t_h_r_e_a_d___m_u_t_e_x___t_r_y_l_o_c_k() function shall fail if:
+
+       EEBBUUSSYY  The _m_u_t_e_x could not be acquired because it was already locked.
+
+       The _p_t_h_r_e_a_d___m_u_t_e_x___u_n_l_o_c_k() function shall fail if:
+
+       EEPPEERRMM  The mutex type is PTHREAD_MUTEX_ERRORCHECK or PTHREAD_MUTEX_RECURSIVE, or the  mutex
+              is a robust mutex, and the current thread does not own the mutex.
+
+       The _p_t_h_r_e_a_d___m_u_t_e_x___l_o_c_k() and _p_t_h_r_e_a_d___m_u_t_e_x___t_r_y_l_o_c_k() functions may fail if:
+
+       EEOOWWNNEERRDDEEAADD
+              The  mutex is a robust mutex and the previous owning thread terminated while holding
+              the mutex lock. The mutex lock shall be acquired by the calling thread and it is  up
+              to the new owner to make the state consistent.
+
+       The _p_t_h_r_e_a_d___m_u_t_e_x___l_o_c_k() function may fail if:
+
+       EEDDEEAADDLLKK
+              A deadlock condition was detected.
+
+       These functions shall not return an error code of [[EEIINNTTRR]].
+
+       _T_h_e _f_o_l_l_o_w_i_n_g _s_e_c_t_i_o_n_s _a_r_e _i_n_f_o_r_m_a_t_i_v_e_.
+
+EEXXAAMMPPLLEESS
+       None.
+
+AAPPPPLLIICCAATTIIOONN UUSSAAGGEE
+       Applications  that  have  assumed that non-zero return values are errors will need updating
+       for use with robust mutexes, since a valid return for a thread acquiring a mutex  which  is
+       protecting  a currently inconsistent state is [[EEOOWWNNEERRDDEEAADD]].  Applications that do not check
+       the error returns, due to ruling out the possibility of such errors arising, should not use
+       robust  mutexes.  If  an  application is supposed to work with normal and robust mutexes it
+       should check all return values for error conditions and if necessary take  appropriate  ac‐
+       tion.
+
+RRAATTIIOONNAALLEE
+       Mutex  objects  are intended to serve as a low-level primitive from which other thread syn‐
+       chronization functions can be built. As such, the implementation of mutexes  should  be  as
+       efficient  as  possible, and this has ramifications on the features available at the inter‐
+       face.
+
+       The mutex functions and the particular default settings of the mutex attributes  have  been
+       motivated  by the desire to not preclude fast, inlined implementations of mutex locking and
+       unlocking.
+
+       Since most attributes only need to be checked when a thread is going to be blocked, the use
+       of attributes does not slow the (common) mutex-locking case.
+
+       Likewise, while being able to extract the thread ID of the owner of a mutex might be desir‐
+       able, it would require storing the current thread ID when each mutex is  locked,  and  this
+       could  incur  unacceptable levels of overhead. Similar arguments apply to a _m_u_t_e_x___t_r_y_u_n_l_o_c_k
+       operation.
+
+       For further rationale on the extended mutex types, see the Rationale  (Informative)  volume
+       of POSIX.1‐2017, _T_h_r_e_a_d_s _E_x_t_e_n_s_i_o_n_s.
+
+       If  an implementation detects that the value specified by the _m_u_t_e_x argument does not refer
+       to an initialized mutex object, it is recommended that the function should fail and  report
+       an [[EEIINNVVAALL]] error.
+
+FFUUTTUURREE DDIIRREECCTTIIOONNSS
+       None.
+
+SSEEEE AALLSSOO
+       _p_t_h_r_e_a_d___m_u_t_e_x___c_o_n_s_i_s_t_e_n_t(), _p_t_h_r_e_a_d___m_u_t_e_x___d_e_s_t_r_o_y(), _p_t_h_r_e_a_d___m_u_t_e_x___t_i_m_e_d_l_o_c_k(), _p_t_h_r_e_a_d___m_u_‐
+       _t_e_x_a_t_t_r___g_e_t_r_o_b_u_s_t()
+
+       The  Base  Definitions  volume  of  POSIX.1‐2017,  _S_e_c_t_i_o_n  _4_._1_2,  _M_e_m_o_r_y  _S_y_n_c_h_r_o_n_i_z_a_t_i_o_n,
+       <<pptthhrreeaadd..hh>>
+
+CCOOPPYYRRIIGGHHTT
+       Portions  of  this  text  are  reprinted  and  reproduced  in electronic form from IEEE Std
+       1003.1-2017, Standard for Information Technology --  Portable  Operating  System  Interface
+       (POSIX),  The  Open  Group Base Specifications Issue 7, 2018 Edition, Copyright (C) 2018 by
+       the Institute of Electrical and Electronics Engineers, Inc and  The  Open  Group.   In  the
+       event  of  any  discrepancy  between  this version and the original IEEE and The Open Group
+       Standard, the original IEEE and The Open Group Standard is the referee document. The origi‐
+       nal Standard can be obtained online at http://www.opengroup.org/unix/online.html .
+
+       Any  typographical  or  formatting  errors that appear in this page are most likely to have
+       been introduced during the conversion of the source files to man  page  format.  To  report
+       such errors, see https://www.kernel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                            2017                     PTHREAD_MUTEX_LOCK(3POSIX)

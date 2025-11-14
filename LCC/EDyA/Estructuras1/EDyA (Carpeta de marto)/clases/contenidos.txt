@@ -1,0 +1,23 @@
+# Estructuras de datos
+
+	Array - Array redimensionales
+	Estructura indexada de tamanio determinado, que podemos ir modificando 
+	el tamanio con malloc y copiando, o realloc.
+
+	- Listas -> Simplemente y doblemente enlazadas
+	  - Pilas
+	  - Colas
+		
+	- Arboles
+	  - BST
+	  - AVL
+	 
+	 - Tabla Hash
+	 
+	 
+ # Algoritmia
+ 
+	 Programacion dinamica
+	 Divide and conquer
+	 Griding
+	 Ordenamientos
