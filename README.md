@@ -27,8 +27,8 @@ Facultad/
 - **ALP** - Análisis de Lenguajes de Programación.
 - **Arquitectura** - Arquitectura del computador.
 - **Comunicaciones** - Comunicaciones en redes.
-- **EbyA** - Estructuras de datos y Algoritmos I
-- **EbyA2** - Estructuras de datos y Algoritmos II
+- **EDyA** - Estructuras de datos y Algoritmos I
+- **EDyA2** - Estructuras de datos y Algoritmos II
 - **Metodos** - Métodos Numéricos
 - **SistemasOperativosI** - Sistemas Operativos I
 
