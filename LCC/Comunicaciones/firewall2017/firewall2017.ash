@@ -14,6 +14,7 @@ ILAN = eth2
 IDMZ = eth3
 
 ADMIN = 10.23.23.5
+
 # Politicas por omision
 $I -P FORWARD DROP
 
@@ -22,7 +23,7 @@ $I -P FORWARD DROP
 $I -P INPUT DROP
 $I -P OUTPUT DROP
 
-# Descartamos conexiones invalidad y aceptamos aquellas que ya han sido establecidas.
+# Descartamos conexiones invalidas y aceptamos aquellas que ya han sido establecidas.
 
 $I -A FORWARD -m state --state INVALID -j DROP
 $I -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT

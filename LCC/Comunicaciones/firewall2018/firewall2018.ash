@@ -55,9 +55,9 @@ $I -A FORWARD -i $ILAN -o $IDMZ -j REJECT
 # 	   Por lo tanto debemos rechazar aquellos que quieran acceder a web a traves de 
 	  #internet 
 
-$I -A FORWARD -s $LAN -i $ILAN -p tcp -m multiport --dports 80,443 -j REJECT
+$I -A FORWARD -s $LAN -i $ILAN -o $IINET -p tcp -m multiport --dports 80,443 -j REJECT
 
-$I -A FORWARD -s $LAN -i $ILAN -p udp --dport 80 -j REJECT
+$I -A FORWARD -s $LAN -i $ILAN -o $IINET -p udp --dport 80 -j REJECT
 
 $I -t nat -A POSTROUTING -s $LAN -o $IINET -j SNAT --to-source $INET
 
