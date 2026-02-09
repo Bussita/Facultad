@@ -34,3 +34,6 @@ cand = \p -> \q -> p @CBool q cfalse
 
 checkBool :: CBool -> Bool
 checkBool b = b True False
+
+type PairNat = forall x . (Nat -> Nat -> x) -> x
+
