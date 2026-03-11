@@ -46,6 +46,21 @@ Facultad/
 
 Cada carpeta contiene apuntes teóricos, trabajos prácticos, ejercicios, informes y proyectos de la materia correspondiente. En particular, el directorio de Sistemas Operativos II ahora forma parte del repositorio principal como contenido versionado directamente dentro de Facultad.
 
+## Detalle por materia
+
+- **ALP**: prácticas de parsers y trabajos prácticos (incluyendo el trabajo final de contratos financieros en Haskell), junto con informe en LaTeX.
+- **Arquitectura**: guías, parciales y ejercicios de arquitectura y assembler (ARM/gaspi).
+- **Comunicaciones**: prácticas de configuración de firewall y redes (por años de cursado).
+- **EDyA**: estructuras básicas, listas y ejercicios introductorios de programación y algoritmos.
+- **EDyA2**: material de programación funcional, TADs, secuencias, Huffman, prácticas y exámenes.
+- **IIA**: apuntes y material inicial de inteligencia artificial.
+- **Metodos**: unidades prácticas de métodos numéricos (punto fijo, métodos directos/iterativos, autovalores, integración y ajuste de curvas).
+- **ModelosFísicos**: proyecto y material de Modelos Físicos.
+- **SistemasOperativosI**: prácticas, material de cátedra y proyecto final.
+- **SistemasOperativosII**: base de código de Nachos y material asociado de la materia.
+- **TBD**: prácticas SQL, parciales y trabajo práctico de bases de datos.
+- **labR**: prácticas de R, datasets y material de apoyo de estadística/probabilidad.
+
 ## Autor
 
 **Bussita**  
