@@ -10,31 +10,41 @@ Este repositorio contiene el material de estudio y proyectos desarrollados duran
 
 ```
 Facultad/
-└── LCC/
-    ├── TBD/                  
-    ├── ALP/                    
-    ├── Arquitectura/           
-    ├── Comunicaciones/
-    ├── EDyA/                   
-    ├── EDyA2/                  
-    ├── Metodos/
-    └── SistemasOperativosI/
+├── LCC/
+│   ├── ALP/
+│   ├── Arquitectura/
+│   ├── Comunicaciones/
+│   ├── EDyA/
+│   ├── EDyA2/
+│   ├── IIA/
+│   ├── Metodos/
+│   ├── ModelosFísicos/
+│   ├── SistemasOperativosI/
+│   ├── SistemasOperativosII/
+│   ├── TBD/
+│   └── labR/
+├── LM/
+└── README.md
 ```
 
 ## Materias
 
-- **TBD** - Teoría de Bases de Datos.
 - **ALP** - Análisis de Lenguajes de Programación.
-- **Arquitectura** - Arquitectura del computador.
+- **Arquitectura** - Arquitectura del Computador.
 - **Comunicaciones** - Comunicaciones en redes.
-- **EbyA** - Estructuras de datos y Algoritmos I
-- **EbyA2** - Estructuras de datos y Algoritmos II
-- **Metodos** - Métodos Numéricos
-- **SistemasOperativosI** - Sistemas Operativos I
+- **EDyA** - Estructuras de Datos y Algoritmos I.
+- **EDyA2** - Estructuras de Datos y Algoritmos II.
+- **IIA** - Introducción a la Inteligencia Artificial.
+- **Metodos** - Métodos Numéricos.
+- **ModelosFísicos** - Modelos Físicos para Ciencias de la Computación.
+- **SistemasOperativosI** - Sistemas Operativos I.
+- **SistemasOperativosII** - Sistemas Operativos II.
+- **TBD** - Teoría de Bases de Datos.
+- **labR** - Material complementario y prácticas de laboratorio.
 
 ## Contenido
 
-Cada carpeta contiene apuntes teóricos, trabajos prácticos, ejercicios y proyectos de la materia correspondiente.
+Cada carpeta contiene apuntes teóricos, trabajos prácticos, ejercicios, informes y proyectos de la materia correspondiente. En particular, el directorio de Sistemas Operativos II ahora forma parte del repositorio principal como contenido versionado directamente dentro de Facultad.
 
 ## Autor
 
