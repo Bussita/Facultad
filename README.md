@@ -50,7 +50,7 @@ Cada carpeta contiene apuntes teóricos, trabajos prácticos, ejercicios, inform
 
 - **ALP**: prácticas de parsers y trabajos prácticos (incluyendo el trabajo final de contratos financieros en Haskell), junto con informe en LaTeX.
 - **Arquitectura**: guías, parciales y ejercicios de arquitectura y assembler.
-- **Comunicaciones**: prácticas de configuración de firewall y redes.
+- **Comunicaciones**: prácticas Dde configuración de firewall y redes.
 - **EDyA**: estructuras básicas, listas y ejercicios introductorios de programación y algoritmos.
 - **EDyA2**: material de programación funcional, TADs, secuencias, Huffman, prácticas y exámenes.
 - **IIA**: apuntes y material inicial de inteligencia artificial.
