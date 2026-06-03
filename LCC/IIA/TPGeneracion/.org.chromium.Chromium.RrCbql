@@ -1,0 +1,172 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# IIA 2024 - Aprendizaje Automatizado\n",
+        "\n",
+        "## Introducción a Jupyter Notebooks y Generación de Datos"
+      ],
+      "metadata": {
+        "id": "v8Sa4wRPHxZL"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "UDkNZ_jzG71j"
+      },
+      "outputs": [],
+      "source": [
+        "import matplotlib.pyplot as plt\n",
+        "import numpy as np\n",
+        "import pandas as pd"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Diagonales\n",
+        "\n",
+        "Generar n datos con d inputs:\n",
+        "\n",
+        "  - n/2 pertenecientes a la categoría 0. Esta clase corresponde a puntos generados al azar, provenientes de una distribución normal, con centro en el (-1, -1, -1, ... , -1) y matriz de covarianza diagonal, con desviación estándar igual a C * SQRT(d).\n",
+        "  - n/2 pertenecientes a la categoría 1. Esta clase corresponde a puntos generados al azar, provenientes de una distribución normal, con centro en el (1, 1, 1, ... ,1) y matriz de covarianza diagonal, con desviación estándar igual a C * SQRT(d).\n"
+      ],
+      "metadata": {
+        "id": "ZDufflloIHHo"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def diagonales(d: int, C: float, n: int) -> Tuple[np.ndarray, np.ndarray]:\n",
+        "    \"\"\"\n",
+        "    Genera sampleos de dos gausianas d-dimensionales en posición diagonal\n",
+        "    (una respecto a la otra), con dispersión C * sqrt(d).\n",
+        "    Cada sampleo posee n/2 puntos.\n",
+        "\n",
+        "    Argumentos:\n",
+        "        d: número de dimensiones\n",
+        "        C: constante de ajuste de dispersión\n",
+        "        n: número de ejemplos a generar\n",
+        "\n",
+        "    Retorna:\n",
+        "        X: matriz con d columnas y n filas de datos\n",
+        "        y: arreglo de n elementos con las clases correspondientes\n",
+        "            a cada fila de datos\n",
+        "    \"\"\"\n",
+        "\n",
+        "    X, y = np.array([]), np.array([])\n",
+        "\n",
+        "    pass  # COMPLETAR\n",
+        "\n",
+        "    return X, y"
+      ],
+      "metadata": {
+        "id": "dFZtOrGRIOrW"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Verificamos ahora los datos generados, mostrándolos con matplotlib.pyplot"
+      ],
+      "metadata": {
+        "id": "46vC4fcQJLMJ"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "diag_X, diag_y = diagonales(200, 2, 0.75)\n",
+        "\n",
+        "# plt.scatter(diag_X[diag_y == 0], diag_y[diag_y == 0], color='red')\n",
+        "# plt.scatter(diag_X[diag_y == 1], diag_y[diag_y == 1], color='blue')\n",
+        "# plt.show()"
+      ],
+      "metadata": {
+        "id": "FkorNOQcJQcH"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Paralelas\n",
+        "\n",
+        "Igual al punto anterior, pero las distribuciones tienen centro en el ( 1, 0, 0, .... , 0 ) y en el ( -1, 0, 0, .... , 0 ), respectivamente y la desviación estandar es igual a C independientemente de d."
+      ],
+      "metadata": {
+        "id": "Dp3dOwR9IPFb"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def paralelas(d: int, C: float, n: int) -> Tuple[np.ndarray, np.ndarray]:\n",
+        "\n",
+        "  X, y = np.array([]), np.array([])\n",
+        "\n",
+        "  pass  # COMPLETAR\n",
+        "\n",
+        "  return X, y"
+      ],
+      "metadata": {
+        "id": "jSFCiGvMIT-y"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Espirales\n",
+        "\n",
+        "Generar n datos. De los n puntos generados, n/2 deben pertenecer a cada clase.\n",
+        "\n",
+        "Los datos tienen 2 inputs, x e y, que corresponden a puntos generados al azar con una distribución UNIFORME (en dicho sistema de referencia x-y) dentro de un circulo de radio 1.\n",
+        "\n",
+        "El output es binario, correspondiendo la clase 0 a los puntos que se encuentran entre las curvas ro = theta/4pi y ro = (theta + pi)/4pi (en polares) y la clase 1 al resto."
+      ],
+      "metadata": {
+        "id": "ghtUorLAIUwD"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def espirales(n: int) -> Tuple[np.ndarray, np.ndarray]:\n",
+        "\n",
+        "    X, y = np.array([]), np.array([])\n",
+        "\n",
+        "    pass  # COMPLETAR\n",
+        "\n",
+        "    return X, y"
+      ],
+      "metadata": {
+        "id": "Lwc3ussYI7aE"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
